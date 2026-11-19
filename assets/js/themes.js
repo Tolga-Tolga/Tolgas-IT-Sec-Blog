@@ -90,7 +90,7 @@
       "--green": readable(ansi[2], ink, surfaces),
       "--yellow": readable(ansi[3], ink, surfaces),
       "--blue": readable(ansi[4], ink, surfaces),
-      "--pink": readable(ansi[1], ink, surfaces),
+      "--red": readable(ansi[1], ink, surfaces),
     };
 
     for (const [property, value] of Object.entries(palette)) {
@@ -105,8 +105,8 @@
   function updateFavicon(palette) {
     const icon = brandIcon.cloneNode(true);
     icon.style.setProperty("--logo-text", palette["--ink"]);
-    icon.style.setProperty("--logo-start", palette["--blue"]);
-    icon.style.setProperty("--logo-end", palette["--green"]);
+    icon.style.setProperty("--logo-start", palette["--red"]);
+    icon.style.setProperty("--logo-end", palette["--yellow"]);
     const svg = new XMLSerializer().serializeToString(icon);
     favicon.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
   }

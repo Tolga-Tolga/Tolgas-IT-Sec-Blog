@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="153 207 947 835" class="brand-icon" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="brand-gradient" gradientUnits="userSpaceOnUse" x1="265" y1="1020" x2="967" y2="252">
-      <stop stop-color="var(--logo-start, #7aa2f7)"/>
-      <stop offset="1" stop-color="var(--logo-end, #9ece6a)"/>
+      <stop stop-color="var(--logo-start, #f7768e)"/>
+      <stop offset="1" stop-color="var(--logo-end, #e0af68)"/>
     </linearGradient>
   </defs>
   <g fill="var(--logo-text, #fff)">

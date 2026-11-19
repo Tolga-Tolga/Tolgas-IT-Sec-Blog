@@ -11,7 +11,7 @@
   --green: #9ece6a;
   --yellow: #e0af68;
   --blue: #7aa2f7;
-  --pink: #f7768e;
+  --red: #f7768e;
   --line: color-mix(in srgb, var(--ink) 14%, var(--panel));
   --heading: color-mix(in srgb, var(--ink) 72%, var(--text));
   --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
@@ -39,7 +39,7 @@ time, .muted { color: var(--muted); }
 .site-header { border-bottom: 1px solid var(--line); }
 .header-inner, .footer-inner { display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.25rem); min-height: 4.65rem; }
 .brand { display: inline-flex; align-items: center; gap: .7rem; color: var(--heading); text-decoration: none; font-weight: 680; white-space: nowrap; }
-.brand-icon { --logo-text: var(--ink); --logo-start: var(--blue); --logo-end: var(--green); display: block; flex: none; inline-size: 2.45rem; block-size: 2.2rem; }
+.brand-icon { --logo-text: var(--ink); --logo-start: var(--red); --logo-end: var(--yellow); display: block; flex: none; inline-size: 2.45rem; block-size: 2.2rem; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(.95rem, 2.5vw, 1.8rem); margin-left: auto; }
 .site-nav a, .site-footer a { color: var(--muted); text-decoration: none; font-size: .9rem; }
 .site-nav a:hover, .site-nav a[aria-current], .site-footer a:hover { color: var(--heading); }
@@ -120,7 +120,7 @@ a.tag:hover { border-color: var(--accent); }
 .chroma .m, .chroma .mi, .chroma .mf { color: var(--yellow); }
 .chroma .na, .chroma .nb, .chroma .nf { color: var(--blue); }
 .chroma .c, .chroma .c1, .chroma .cm, .chroma .cp { color: var(--muted); }
-.chroma .err { color: var(--pink); }
+.chroma .err { color: var(--red); }
 
 .theme-dialog { width: min(calc(100% - 1.5rem), 31rem); max-height: calc(100dvh - 1.5rem); padding: 1.15rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--panel); color: var(--text); box-shadow: 0 1rem 4rem #0007; }
 .theme-dialog::backdrop { background: #0b0b14ba; }
