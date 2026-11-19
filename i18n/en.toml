@@ -58,6 +58,9 @@ other = "Article languages"
 [article_language]
 other = "Article language"
 
+[post_contents]
+other = "On this page"
+
 [missing_title]
 other = "Page not found"
 

@@ -58,6 +58,9 @@ other = "Sprachversionen des Artikels"
 [article_language]
 other = "Artikelsprache"
 
+[post_contents]
+other = "Auf dieser Seite"
+
 [missing_title]
 other = "Seite nicht gefunden"
 

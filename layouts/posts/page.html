@@ -2,6 +2,8 @@
   {{ $locale := partialCached "post-locale.html" . .File.Path }}
   {{ $variants := partial "post-variants.html" . }}
   {{ $articleLanguage := lower $locale.language }}
+  {{ $toc := .TableOfContents }}
+  {{ $hasToc := strings.Contains $toc "<a " }}
   {{ $metadataPage := . }}
   {{ $browserLocale := true }}
   {{ range hugo.Sites }}
@@ -46,6 +48,18 @@
         {{ range .GetTerms "tags" }}<a class="tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
       </div>
     </header>
-    <div class="prose">{{ .Content }}</div>
+    <div class="post-body">
+      {{ if $hasToc }}
+        {{ $nav := printf `<nav id="TableOfContents" class="post-toc" aria-labelledby="post-toc-title"><p id="post-toc-title" lang="%s">%s</p>` (site.Language.Locale | htmlEscape) (T "post_contents" | htmlEscape) }}
+        {{ replace $toc `<nav id="TableOfContents">` $nav 1 | safeHTML }}
+      {{ end }}
+      <div class="prose">{{ .Content }}</div>
+    </div>
   </article>
+  {{ if $hasToc }}
+    {{ with resources.Get "js/post-toc.js" }}
+      {{ $script := . | minify | fingerprint }}
+      <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" defer></script>
+    {{ end }}
+  {{ end }}
 {{ end }}
