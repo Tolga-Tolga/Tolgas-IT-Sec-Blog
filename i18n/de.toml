@@ -70,6 +70,12 @@ other = "Kitty-Theme auswählen"
 [theme_search]
 other = "Themes durchsuchen …"
 
+[theme_popular]
+other = "Beliebte Themes"
+
+[theme_all]
+other = "Alle Themes"
+
 [theme_close]
 other = "Schließen"
 
@@ -93,6 +99,21 @@ other = "Theme"
 
 [theme_many]
 other = "Themes"
+
+[theme_remember]
+other = "Theme auf diesem Gerät merken"
+
+[theme_remember_hint]
+other = "Speichert deine Auswahl bis zu 180 Tage in diesem Browser. Entferne das Häkchen, um die Speicherung zu widerrufen."
+
+[theme_storage_error]
+other = "Die Speicherung konnte in diesem Browser nicht geändert werden."
+
+[privacy_name_placeholder]
+other = "[Vollständiger Name oder Organisation]"
+
+[privacy_contact_placeholder]
+other = "[E-Mail-Adresse oder Anschrift]"
 
 [short_date]
 other = "2. Jan. 2006"

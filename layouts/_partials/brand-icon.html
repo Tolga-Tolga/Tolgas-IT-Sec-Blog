@@ -1,0 +1,2 @@
+{{- $icon := resources.Get "brand.svg" -}}
+{{- replace $icon.Content "brand-gradient" . | safeHTML -}}

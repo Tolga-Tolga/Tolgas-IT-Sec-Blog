@@ -2,38 +2,13 @@
   {{ $posts := site.GetPage "/posts" }}
   {{ $recent := partial "preferred-posts.html" (dict "pages" $posts.RegularPagesRecursive "language" site.Language.Name) }}
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-copy">
-      <h1 id="hero-title">{{ T "hero_first" }}<br><span>{{ T "hero_second" }}</span></h1>
-      <p>{{ site.Params.description }}</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="{{ $posts.RelPermalink }}">{{ T "read_posts" }}</a>
-        {{ with site.Home.OutputFormats.Get "rss" }}
-          <a class="button button-secondary rss-link" href="{{ .RelPermalink }}"><span class="rss-icon" aria-hidden="true"></span>{{ T "subscribe" }}</a>
-        {{ end }}
-      </div>
-    </div>
-    <div class="terminal-scene">
-      <div class="terminal">
-        <div class="terminal-bar">
-          <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-          <span>~/secblog</span>
-        </div>
-        <div class="terminal-body">
-          <div><span class="terminal-prompt">$</span> hugo list published</div>
-          <ul class="terminal-output">
-            {{ range first 3 $recent }}
-              <li><a href="{{ .RelPermalink }}">{{ strings.TrimPrefix "posts/" (replace .File.Path "\\" "/") }}</a></li>
-            {{ else }}
-              <li>{{ T "no_posts" }}</li>
-            {{ end }}
-          </ul>
-          <div aria-hidden="true"><span class="terminal-prompt">$</span> <span class="terminal-cursor"></span></div>
-        </div>
-        <div class="terminal-footer" aria-hidden="true">
-          <span class="ansi-palette"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-          <span id="terminal-theme">Tokyo Night</span>
-        </div>
-      </div>
+    <h1 id="hero-title">{{ T "hero_first" }} <span>{{ T "hero_second" }}</span></h1>
+    <p>{{ site.Params.description }}</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ $posts.RelPermalink }}">{{ T "read_posts" }}</a>
+      {{ with site.Home.OutputFormats.Get "rss" }}
+        <a class="button button-secondary rss-link" href="{{ .RelPermalink }}"><span class="rss-icon" aria-hidden="true"></span>{{ T "subscribe" }}</a>
+      {{ end }}
     </div>
   </section>
   <section class="recent-posts" aria-labelledby="recent-title">

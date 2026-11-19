@@ -2,7 +2,8 @@
 <dialog id="theme-dialog" class="theme-dialog" aria-labelledby="theme-title"
   data-catalog="{{ $themes.RelPermalink }}" data-loading="{{ T "theme_loading" }}"
   data-error="{{ T "theme_error" }}" data-empty="{{ T "theme_none" }}"
-  data-single="{{ T "theme_one" }}" data-plural="{{ T "theme_many" }}">
+  data-single="{{ T "theme_one" }}" data-plural="{{ T "theme_many" }}"
+  data-storage-error="{{ T "theme_storage_error" }}">
   <div class="dialog-heading">
     <h2 id="theme-title">{{ T "theme_title" }}</h2>
     <form method="dialog"><button class="dialog-close" type="submit" aria-label="{{ T "theme_close" }}">×</button></form>
@@ -10,6 +11,23 @@
   <label class="visually-hidden" for="theme-search">{{ T "theme_search" }}</label>
   <input id="theme-search" class="theme-search" type="search" placeholder="{{ T "theme_search" }}" autocomplete="off" autofocus>
   <p id="theme-status" class="theme-status" role="status"></p>
-  <ul id="theme-results" class="theme-results"></ul>
+  <div id="theme-catalog" class="theme-catalog" hidden>
+    <section id="theme-popular" class="theme-popular" aria-labelledby="theme-popular-title" hidden>
+      <h3 id="theme-popular-title">{{ T "theme_popular" }}</h3>
+      <ul id="theme-popular-results" class="theme-results theme-results-popular"></ul>
+    </section>
+    <section class="theme-all" aria-labelledby="theme-all-title">
+      <h3 id="theme-all-title">{{ T "theme_all" }}</h3>
+      <ul id="theme-results" class="theme-results"></ul>
+    </section>
+  </div>
+  <div class="theme-preference">
+    <label for="theme-remember">
+      <input type="checkbox" id="theme-remember" aria-describedby="theme-remember-hint">
+      {{ T "theme_remember" }}
+    </label>
+    <p id="theme-remember-hint">{{ T "theme_remember_hint" }}</p>
+    <p id="theme-preference-status" role="status"></p>
+  </div>
   <p class="theme-source">{{ T "theme_credit" }} <a href="https://github.com/kovidgoyal/kitty-themes">{{ T "theme_catalog" }}</a></p>
 </dialog>

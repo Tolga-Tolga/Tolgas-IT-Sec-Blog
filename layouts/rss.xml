@@ -5,14 +5,16 @@
   {{- $pages = .RegularPagesRecursive -}}
 {{- end -}}
 {{- $posts := partial "preferred-posts.html" (dict "pages" $pages "language" site.Language.Name) -}}
+{{- $feedPage := . -}}
+{{- if not (partial "page-visible.html" .) -}}{{- $feedPage = site.Home -}}{{- end -}}
 {{- "<?xml version=\"1.0\" encoding=\"utf-8\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
-    <link>{{ .Permalink }}</link>
-    <description>{{ .Description | default site.Params.description }}</description>
+    <title>{{ if not $feedPage.IsHome }}{{ $feedPage.Title }} · {{ end }}{{ site.Title }}</title>
+    <link>{{ $feedPage.Permalink }}</link>
+    <description>{{ $feedPage.Description | default site.Params.description }}</description>
     <language>{{ site.Language.Locale }}</language>
-    {{ with .OutputFormats.Get "rss" }}<atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />{{ end }}
+    {{ with $feedPage.OutputFormats.Get "rss" }}<atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />{{ end }}
     {{ range $posts }}
       <item>
         <title>{{ .Title }}</title>

@@ -1,11 +1,14 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <a class="brand footer-brand" href="{{ site.Home.RelPermalink }}">
-      <span class="brand-icon" aria-hidden="true">&gt;_</span>
+      {{ partial "brand-icon.html" "footer-brand-gradient" }}
       <span>{{ site.Title }}</span>
     </a>
-    {{ with site.Home.OutputFormats.Get "rss" }}
-      <a class="rss-link" href="{{ .RelPermalink }}"><span class="rss-icon" aria-hidden="true"></span>{{ T "subscribe" }}</a>
-    {{ end }}
+    <div class="footer-links">
+      {{ with site.GetPage "/privacy" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{ with site.Home.OutputFormats.Get "rss" }}
+        <a class="rss-link" href="{{ .RelPermalink }}"><span class="rss-icon" aria-hidden="true"></span>{{ T "subscribe" }}</a>
+      {{ end }}
+    </div>
   </div>
 </footer>

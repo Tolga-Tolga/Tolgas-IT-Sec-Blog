@@ -3,14 +3,36 @@
   const toggle = document.getElementById("theme-toggle");
   const dialog = document.getElementById("theme-dialog");
   const search = document.getElementById("theme-search");
+  const catalog = document.getElementById("theme-catalog");
+  const popular = document.getElementById("theme-popular");
+  const popularResults = document.getElementById("theme-popular-results");
   const results = document.getElementById("theme-results");
   const status = document.getElementById("theme-status");
+  const remember = document.getElementById("theme-remember");
+  const preferenceStatus = document.getElementById("theme-preference-status");
   const themeName = document.getElementById("theme-name");
-  const terminalTheme = document.getElementById("terminal-theme");
+  const favicon = document.getElementById("site-icon");
+  const brandIcon = document.querySelector(".site-header .brand-icon");
   const locale = root.lang;
   const labels = dialog.dataset;
-  const storageKey = "secblog.theme";
-  let activeId = "tokyo_night_night";
+  const sessionKey = "secblog.theme.session";
+  const rememberedKey = "secblog.theme.remembered";
+  const rememberDuration = 180 * 24 * 60 * 60 * 1000;
+  const defaultId = "tokyo_night_night";
+  const popularIds = [
+    "Catppuccin-Mocha",
+    "Dracula",
+    defaultId,
+    "Nord",
+    "gruvbox-dark",
+    "OneDark",
+    "Solarized_Dark",
+    "rose-pine",
+    "kanagawa",
+    "everforest_dark_medium",
+  ];
+  const rememberedId = readRememberedTheme();
+  let activeId = rememberedId || readSessionTheme() || defaultId;
   let catalogRequest;
 
   const hexToRgb = (color) => color.slice(1).match(/../g).map((byte) => parseInt(byte, 16));
@@ -74,11 +96,19 @@
     for (const [property, value] of Object.entries(palette)) {
       root.style.setProperty(property, value);
     }
-    theme.ansi.forEach((value, index) => root.style.setProperty(`--ansi-${index}`, value));
     root.style.colorScheme = dark ? "dark" : "light";
+    updateFavicon(palette);
     activeId = theme.id;
     themeName.textContent = theme.name;
-    if (terminalTheme) terminalTheme.textContent = theme.name;
+  }
+
+  function updateFavicon(palette) {
+    const icon = brandIcon.cloneNode(true);
+    icon.style.setProperty("--logo-text", palette["--ink"]);
+    icon.style.setProperty("--logo-start", palette["--blue"]);
+    icon.style.setProperty("--logo-end", palette["--green"]);
+    const svg = new XMLSerializer().serializeToString(icon);
+    favicon.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
   }
 
   function loadCatalog() {
@@ -95,58 +125,104 @@
     return catalogRequest;
   }
 
-  function savedTheme() {
+  function readRememberedTheme() {
     try {
-      return localStorage.getItem(storageKey);
+      const stored = JSON.parse(localStorage.getItem(rememberedKey));
+      if (typeof stored?.id === "string" && stored.id &&
+          Number.isFinite(stored.expiresAt) && stored.expiresAt > Date.now()) {
+        return stored.id;
+      }
+      if (stored !== null) localStorage.removeItem(rememberedKey);
+    } catch {
+      // Ignore unavailable or invalid browser storage.
+    }
+    return null;
+  }
+
+  function readSessionTheme() {
+    try {
+      return sessionStorage.getItem(sessionKey);
     } catch {
       return null;
     }
   }
 
+  function saveSessionTheme() {
+    try {
+      sessionStorage.setItem(sessionKey, activeId);
+    } catch {
+      // The theme still applies on the current page.
+    }
+  }
+
+  function saveRememberedTheme(enabled) {
+    try {
+      if (enabled) {
+        localStorage.setItem(rememberedKey, JSON.stringify({
+          id: activeId,
+          expiresAt: Date.now() + rememberDuration,
+        }));
+      } else {
+        localStorage.removeItem(rememberedKey);
+      }
+      preferenceStatus.textContent = "";
+      return true;
+    } catch {
+      preferenceStatus.textContent = labels.storageError;
+      return false;
+    }
+  }
+
   function selectTheme(theme) {
     applyTheme(theme);
-    try {
-      localStorage.setItem(storageKey, theme.id);
-    } catch {
-      // The theme still applies for this page if storage is disabled.
+    saveSessionTheme();
+    if (remember.checked && !saveRememberedTheme(true)) {
+      return;
     }
     dialog.close();
+  }
+
+  function createThemeOption(theme) {
+    const item = document.createElement("li");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "theme-option";
+    button.setAttribute("aria-pressed", String(activeId === theme.id));
+    button.textContent = theme.name;
+    button.addEventListener("click", () => selectTheme(theme));
+
+    const swatches = document.createElement("span");
+    swatches.className = "option-swatches";
+    swatches.setAttribute("aria-hidden", "true");
+    for (const color of [theme.background, theme.ansi[4], theme.ansi[5], theme.foreground]) {
+      const swatch = document.createElement("i");
+      swatch.style.background = color;
+      swatches.append(swatch);
+    }
+    button.append(swatches);
+    item.append(button);
+    return item;
   }
 
   function renderThemes(themes) {
     const query = search.value.trim().toLocaleLowerCase(locale);
     const matching = themes.filter((theme) => theme.name.toLocaleLowerCase(locale).includes(query));
-    const items = matching.map((theme) => {
-      const item = document.createElement("li");
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "theme-option";
-      button.setAttribute("aria-pressed", String(activeId === theme.id));
-      button.textContent = theme.name;
-      button.addEventListener("click", () => selectTheme(theme));
+    const popularThemes = query ? [] :
+      popularIds.map((id) => themes.find((theme) => theme.id === id)).filter(Boolean);
 
-      const swatches = document.createElement("span");
-      swatches.className = "option-swatches";
-      swatches.setAttribute("aria-hidden", "true");
-      for (const color of [theme.background, theme.ansi[4], theme.ansi[5], theme.foreground]) {
-        const swatch = document.createElement("i");
-        swatch.style.background = color;
-        swatches.append(swatch);
-      }
-      button.append(swatches);
-      item.append(button);
-      return item;
-    });
-
-    results.replaceChildren(...items);
-    results.scrollTop = 0;
+    popularResults.replaceChildren(...popularThemes.map(createThemeOption));
+    popular.hidden = popularThemes.length === 0;
+    results.replaceChildren(...matching.map(createThemeOption));
+    catalog.hidden = matching.length === 0;
+    catalog.scrollTop = 0;
     status.textContent = matching.length === 0 ? labels.empty :
       `${matching.length} ${matching.length === 1 ? labels.single : labels.plural}`;
   }
 
   toggle.addEventListener("click", async () => {
+    remember.checked = Boolean(readRememberedTheme());
     search.value = "";
-    results.replaceChildren();
+    catalog.hidden = true;
     status.textContent = labels.loading;
     dialog.showModal();
     try {
@@ -164,14 +240,35 @@
     }
   });
 
+  remember.addEventListener("change", () => {
+    const enabled = remember.checked;
+    if (!saveRememberedTheme(enabled)) {
+      remember.checked = !enabled;
+      return;
+    }
+    if (!enabled) saveSessionTheme();
+  });
+
+  window.addEventListener("storage", ({ key }) => {
+    if (key === rememberedKey || key === null) {
+      remember.checked = Boolean(readRememberedTheme());
+    }
+  });
+
+  try {
+    localStorage.removeItem("secblog.theme");
+  } catch {
+    // Older automatic preferences are never read.
+  }
+
   dialog.addEventListener("close", () => toggle.focus());
   toggle.hidden = false;
 
-  const storedId = savedTheme();
-  if (storedId && storedId !== activeId) {
+  const storedId = activeId;
+  if (storedId !== defaultId) {
     loadCatalog().then((themes) => {
       const theme = themes.find(({ id }) => id === storedId);
-      if (theme && activeId === "tokyo_night_night") applyTheme(theme);
+      if (theme && activeId === storedId) applyTheme(theme);
     }).catch(() => {});
   }
 })();

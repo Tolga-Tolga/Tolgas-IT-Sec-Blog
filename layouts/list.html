@@ -6,11 +6,15 @@
       {{ with .Description }}<p>{{ . }}</p>{{ end }}
     </header>
     {{ if eq .Kind "taxonomy" }}
-      {{ with .Data.Terms.Alphabetical }}
+      {{ $terms := slice }}
+      {{ range .Data.Terms.Alphabetical }}
+        {{ $count := len (partial "post-groups.html" .Page.RegularPages) }}
+        {{ if gt $count 0 }}{{ $terms = $terms | append (dict "page" .Page "count" $count) }}{{ end }}
+      {{ end }}
+      {{ with $terms }}
         <ul class="tag-index">
           {{ range . }}
-            {{ $count := len (partial "post-groups.html" .Page.RegularPages) }}
-            <li><a class="tag" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }} <span>{{ $count }}</span></a></li>
+            <li><a class="tag" href="{{ .page.RelPermalink }}">{{ .page.LinkTitle }} <span>{{ .count }}</span></a></li>
           {{ end }}
         </ul>
       {{ else }}

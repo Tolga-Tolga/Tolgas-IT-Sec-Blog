@@ -1,0 +1,8 @@
+{{ $operator := hugo.Data.privacy }}
+<p>{{ $operator.name | default (T "privacy_name_placeholder") }}</p>
+{{ with $operator.address }}<p class="privacy-address">{{ . }}</p>{{ end }}
+{{ with $operator.email }}
+  <p><a href="mailto:{{ . }}">{{ . }}</a></p>
+{{ else }}
+  {{ if not $operator.address }}<p>{{ T "privacy_contact_placeholder" }}</p>{{ end }}
+{{ end }}

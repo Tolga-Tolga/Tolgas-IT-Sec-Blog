@@ -70,6 +70,12 @@ other = "Choose a Kitty theme"
 [theme_search]
 other = "Search themes …"
 
+[theme_popular]
+other = "Popular themes"
+
+[theme_all]
+other = "All themes"
+
 [theme_close]
 other = "Close"
 
@@ -93,6 +99,21 @@ other = "theme"
 
 [theme_many]
 other = "themes"
+
+[theme_remember]
+other = "Remember theme on this device"
+
+[theme_remember_hint]
+other = "Saves your choice in this browser for up to 180 days. Clear the checkbox to withdraw your consent."
+
+[theme_storage_error]
+other = "This browser could not update the saved preference."
+
+[privacy_name_placeholder]
+other = "[Full name or organisation]"
+
+[privacy_contact_placeholder]
+other = "[Email or postal address]"
 
 [short_date]
 other = "Jan 2, 2006"

@@ -1,12 +1,21 @@
+{{- $visible := partial "page-visible.html" . -}}
 <!doctype html>
 <html lang="{{ site.Language.Locale }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if eq .Kind "404" }}{{ T "missing_title" }} · {{ else if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
-  <meta name="description" content="{{ .Description | default site.Params.description }}">
-  <link rel="canonical" href="{{ .Permalink }}">
-  {{ $feed := .OutputFormats.Get "rss" | default (site.Home.OutputFormats.Get "rss") }}
+  <title>{{ if or (not $visible) (eq .Kind "404") }}{{ T "missing_title" }} · {{ else if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
+  {{ if $visible }}
+    <meta name="description" content="{{ .Description | default site.Params.description }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+  {{ else }}
+    <meta name="robots" content="noindex">
+  {{ end }}
+  {{ with resources.Get "brand.svg" | fingerprint }}
+    <link rel="icon" id="site-icon" type="image/svg+xml" href="{{ .RelPermalink }}">
+  {{ end }}
+  {{ $feed := site.Home.OutputFormats.Get "rss" }}
+  {{ if $visible }}{{ $feed = .OutputFormats.Get "rss" | default $feed }}{{ end }}
   {{ with $feed }}<link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
   {{ with resources.Get "css/site.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
@@ -17,9 +26,15 @@
 </head>
 <body>
   <a class="skip-link" href="#inhalt">{{ T "skip" }}</a>
-  {{ partial "header.html" . }}
+  {{ $headerPage := . }}
+  {{ if not $visible }}{{ $headerPage = site.Home }}{{ end }}
+  {{ partial "header.html" $headerPage }}
   <main id="inhalt" class="container">
-    {{ block "main" . }}{{ end }}
+    {{ if $visible }}
+      {{ block "main" . }}{{ end }}
+    {{ else }}
+      {{ partial "not-found.html" . }}
+    {{ end }}
   </main>
   {{ partial "footer.html" . }}
   {{ partial "theme-dialog.html" . }}

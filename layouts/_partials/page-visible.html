@@ -1,0 +1,7 @@
+{{- $visible := true -}}
+{{- if and .IsPage (eq .Section "posts") -}}
+  {{- $visible = eq .Params.visible true -}}
+{{- else if eq .Kind "term" -}}
+  {{- $visible = gt (len (where .RegularPages "Params.visible" "eq" true)) 0 -}}
+{{- end -}}
+{{- return $visible -}}

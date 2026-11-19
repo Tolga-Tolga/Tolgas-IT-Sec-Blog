@@ -1,4 +1,5 @@
 baseURL = 'https://tolga-tolga.github.io/Tolgas-IT-Sec-Blog/'
+# The local preview output directory is configured in config/development/hugo.toml.
 timeZone = 'Europe/Berlin'
 defaultContentLanguage = 'en'
 disableDefaultLanguageRedirect = true

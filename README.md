@@ -10,7 +10,7 @@ Der GitHub-Pages-Workflow verwendet Hugo 0.170.1. Externe Feeds werden mit Pytho
 hugo server -D
 ```
 
-Hugo gibt im Terminal die lokale Vorschauadresse aus. Mit `-D` erscheinen auch Entwürfe. Für externe Kacheln in der Vorschau kannst du vorher `python scripts/update-feeds.py` ausführen.
+Hugo gibt im Terminal die lokale Vorschauadresse aus. Mit `-D` erscheinen auch Entwürfe. Die Vorschau schreibt nach `public-preview/`. Der Produktionsbuild für GitHub Pages schreibt nach `public/`. Für externe Kacheln in der Vorschau kannst du vorher `python scripts/update-feeds.py` ausführen.
 
 ## Beiträge und Übersetzungen
 
@@ -22,6 +22,8 @@ hugo new content posts/blogxyz_de.md
 ```
 
 Dateien mit demselben Namen vor dem Sprachsuffix gehören zum selben Beitrag. Weitere Varianten wie `blogxyz_fr.md` oder `blogxyz_pt-BR.md` erscheinen automatisch in der Artikelauswahl. Dateien ohne Suffix gelten als englische Fassung.
+
+Jede Sprachfassung braucht `visible = true`, damit sie angezeigt wird. Neue Beiträge starten mit `visible = false`. Für die Veröffentlichung auf GitHub Pages muss zusätzlich `draft = false` gesetzt sein. Die lokale Vorschau mit `-D` zeigt auch Entwürfe mit `visible = true`.
 
 Die Website-Sprache bestimmt die bevorzugte Fassung der Kachel. Fehlt sie, bleibt eine vorhandene Sprachfassung erreichbar, mit Englisch als erster Ausweichsprache. Innerhalb eines Artikels erscheint die Sprachwahl, sobald mehrere Fassungen veröffentlicht sind. Der Wechsel dort betrifft nur den Artikel.
 
@@ -39,12 +41,16 @@ Unter deinen Beiträgen erscheinen bis zu zwölf externe Beiträge im selben Kac
 
 Die RSS-Feeds des Blogs enthalten die eigenen Beiträge. Sie liegen unter `/index.xml` und `/de/index.xml` relativ zur Blog-Adresse.
 
+## Datenschutz
+
+Setze in [data/privacy.toml](data/privacy.toml) den Namen des Verantwortlichen und die für Datenschutzanfragen vorgesehene Kontaktadresse ein. Beide Sprachfassungen der Datenschutzerklärung übernehmen diese Angaben automatisch. Ihre Links stehen im Footer.
+
 ## GitHub Pages
 
 Wähle im Repository unter **Settings → Pages → Build and deployment → Source** die Option **GitHub Actions**. Der [Workflow](.github/workflows/pages.yml) baut und veröffentlicht die Website bei Pushes auf `main`. Er übernimmt die Basis-URL aus der Pages-Konfiguration. Die voreingestellte Projektadresse ist [tolga-tolga.github.io/Tolgas-IT-Sec-Blog](https://tolga-tolga.github.io/Tolgas-IT-Sec-Blog/). [GitHub Pages konfigurieren](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 
 ## Kitty-Themes
 
-Die Theme-Auswahl enthält alle 435 Paletten des eingebundenen Katalogstands und speichert die Auswahl im Browser. Tokyo Night ist voreingestellt. [Kitty-Katalogstand](https://github.com/kovidgoyal/kitty-themes/tree/500a1d16525edae093e854a3190d87bdbd302dd0) · [Kataloglizenz](static/licenses/kitty-themes.txt)
+Die Theme-Auswahl enthält alle 435 Paletten des eingebundenen Katalogstands. Tokyo Night ist voreingestellt. Die Auswahl gilt für den aktuellen Tab. Mit **Theme auf diesem Gerät merken** bleibt sie im selben Browser bis zu 180 Tage gültig. Das Entfernen des Häkchens löscht den dauerhaft gespeicherten Eintrag. [Kitty-Katalogstand](https://github.com/kovidgoyal/kitty-themes/tree/500a1d16525edae093e854a3190d87bdbd302dd0) · [Kataloglizenz](static/licenses/kitty-themes.txt)
 
 Der Katalog lässt sich aus einem ausgecheckten Upstream-Stand mit `python scripts/import-kitty-themes.py <Pfad> <Commit-SHA>` aktualisieren.

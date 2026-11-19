@@ -6,7 +6,7 @@
       {{ $target = $ }}
     {{ else }}
       {{ with .GetPage $.Path }}
-        {{ $target = . }}
+        {{ if partial "page-visible.html" . }}{{ $target = . }}{{ end }}
         {{ if and .IsPage (eq .Section "posts") }}
           {{ with partial "post-variants.html" . }}
             {{ $target = partial "preferred-post.html" (dict "pages" . "language" $language) }}

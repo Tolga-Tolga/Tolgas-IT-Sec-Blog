@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="{{ site.Home.RelPermalink }}">
-      <span class="brand-icon" aria-hidden="true">&gt;_</span>
+      {{ partial "brand-icon.html" "header-brand-gradient" }}
       <span>{{ site.Title }}</span>
     </a>
     <nav class="site-nav" aria-label="{{ T "navigation" }}">

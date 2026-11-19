@@ -2,6 +2,7 @@
 title = 'NGINX und CVE-XXXX-YYYY: Untersuchung'
 description = ''
 tags = ['NGINX', 'CVE']
+visible = false
 draft = true
 +++
 
