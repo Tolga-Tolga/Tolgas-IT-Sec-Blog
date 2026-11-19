@@ -14,6 +14,7 @@
   --red: #f7768e;
   --line: color-mix(in srgb, var(--ink) 14%, var(--panel));
   --heading: color-mix(in srgb, var(--ink) 72%, var(--text));
+  --page-heading-gap: 2rem;
   --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 }
@@ -91,7 +92,7 @@ a.tag:hover { border-color: var(--accent); }
 .tag-index { display: flex; flex-wrap: wrap; gap: .65rem; padding: 0; list-style: none; }
 
 .listing, .post { padding-top: clamp(2.75rem, 7vw, 5.5rem); }
-.page-heading { margin-bottom: 2rem; }
+.page-heading { margin-bottom: var(--page-heading-gap); }
 .page-heading h1 { margin: .55rem 0 .8rem; font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: -.052em; overflow-wrap: anywhere; }
 .page-heading p { color: var(--muted); font-size: 1.15rem; }
 .post { max-width: 48rem; margin-inline: auto; }
@@ -100,8 +101,8 @@ a.tag:hover { border-color: var(--accent); }
 .article-language { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; color: var(--muted); font-size: .9rem; }
 .post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: 1.25rem; color: var(--muted); font: .85rem/1.4 var(--mono); }
 .post-toc { display: none; }
-.prose { line-height: 1.78; overflow-wrap: anywhere; }
-.prose h2, .prose h3 { margin: 1.85em 0 .5em; }
+.prose { --section-heading-gap: 1.85em; line-height: 1.78; overflow-wrap: anywhere; }
+.prose h2, .prose h3 { margin: var(--section-heading-gap) 0 .5em; }
 .prose p, .prose ul, .prose ol, .prose blockquote, .prose pre, .prose table { margin: 0 0 1.2rem; }
 .prose li + li { margin-top: .3rem; }
 .prose img { max-width: 100%; height: auto; }
@@ -159,6 +160,10 @@ a.tag:hover { border-color: var(--accent); }
 @media (min-width: 90rem) {
   /* Keep the article centered and use its outer gutter for the navigation. */
   .post-body:has(> .post-toc) { display: grid; grid-template-columns: minmax(0, 1fr) 0; }
+  /* Grid separates the header and first heading margins, so count the shared gap once. */
+  .post-body:has(> .post-toc) > .prose > :is(h2, h3):first-child {
+    margin-block-start: max(0px, calc(var(--section-heading-gap) - var(--page-heading-gap)));
+  }
   .post-toc {
     --toc-divider-offset: .375rem;
     --toc-width: calc(clamp(8.75rem, calc(25vw - 13.75rem), 12rem) + var(--toc-divider-offset));
