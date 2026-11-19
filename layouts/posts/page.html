@@ -16,12 +16,23 @@
       <div class="post-navigation" lang="{{ site.Language.Locale }}">
         {{ with site.GetPage "/posts" }}<a class="context-link" href="{{ .RelPermalink }}">{{ T "all_posts" }}</a>{{ end }}
         {{ if gt (len $variants) 1 }}
+          {{ $languageRanks := dict }}
+          {{ range $rank, $site := hugo.Sites }}
+            {{ $languageRanks = merge $languageRanks (dict $site.Language.Name (add $rank 1)) }}
+          {{ end }}
+          {{ $options := slice }}
+          {{ range $variants }}
+            {{ $variant := partialCached "post-locale.html" . .File.Path }}
+            {{ $code := lower $variant.language }}
+            {{ $primary := index (split $code "-") 0 }}
+            {{ $rank := index $languageRanks $primary | default (add (len $languageRanks) 1) }}
+            {{ $options = $options | append (dict "page" . "language" $variant.language "order" (printf "%06d-%s" $rank $code)) }}
+          {{ end }}
           <nav class="article-language" aria-label="{{ T "article_languages" }}">
             <span>{{ T "article_language" }}</span>
             <div class="language-switch">
-              {{ range sort $variants "File.Path" }}
-                {{ $variant := partialCached "post-locale.html" . .File.Path }}
-                <a href="{{ .RelPermalink }}" lang="{{ $variant.language }}" hreflang="{{ $variant.language }}"{{ if eq .RelPermalink $.RelPermalink }} aria-current="page"{{ end }}>{{ upper $variant.language }}</a>
+              {{ range sort $options "order" }}
+                <a href="{{ .page.RelPermalink }}" lang="{{ .language }}" hreflang="{{ .language }}"{{ if eq .page.RelPermalink $.RelPermalink }} aria-current="page"{{ end }}>{{ upper .language }}</a>
               {{ end }}
             </div>
           </nav>

@@ -3,6 +3,7 @@ baseURL = 'https://tolga-tolga.github.io/Tolgas-IT-Sec-Blog/'
 timeZone = 'Europe/Berlin'
 defaultContentLanguage = 'en'
 disableDefaultLanguageRedirect = true
+copyright = '© 2026 Tolga'
 
 [languages.en]
   locale = 'en'
