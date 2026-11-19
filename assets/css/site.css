@@ -151,6 +151,8 @@ a.tag:hover { border-color: var(--accent); }
 
 @media (min-width: 75rem) {
   .header-inner, .footer-inner { width: calc(100% - 3rem); }
+  main.container { width: calc(50% + 34.5rem); }
+  .post { max-width: calc(100% - 12rem); }
 }
 
 @media (max-width: 52rem) {
