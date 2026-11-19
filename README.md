@@ -4,7 +4,7 @@ A personal, non-commercial IT security blog about hands-on vulnerability analysi
 
 ## Architecture
 
-Hugo builds a static site and RSS feeds from Markdown. GitHub Actions imports external feeds, runs Hugo, and deploys the result to GitHub Pages. [Hugo](https://gohugo.io/) · [Deployment workflow](.github/workflows/pages.yml)
+Hugo builds a static site and RSS feeds from Markdown. GitHub Actions imports external feeds, runs Hugo, and deploys the result to GitHub Pages. [Hugo](https://gohugo.io/) · [Deployment workflow](.github/workflows/publish-blog.yml)
 
 ## Kitty themes
 
