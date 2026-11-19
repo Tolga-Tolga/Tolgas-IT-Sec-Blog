@@ -51,7 +51,7 @@ Copy the **RSS** link from the site header into your feed reader. Hugo generates
 
 ## Adapting the site
 
-1. Set your `baseURL`, `copyright`, and English and German titles and descriptions in `hugo.toml`. The Pages workflow supplies its deployment URL at build time. [Hugo configuration](hugo.toml)
+1. Set your `baseURL`, shared `title`, `copyright`, and English and German descriptions in `hugo.toml`. The Pages workflow supplies its deployment URL at build time. [Hugo configuration](hugo.toml)
 2. Replace the existing posts, logo in `assets/brand.svg`, privacy pages, and contact details with your own. Set your sources in `data/external_feeds.toml`. [Content](content/) · [Privacy contact settings](data/privacy.toml)
 3. To customize your own RSS feed, edit `layouts/rss.xml` for the channel and item fields or `[outputs]` in `hugo.toml` to control which page types generate RSS. Share the feed URLs under your own site address. [RSS template](layouts/rss.xml)
 4. In your GitHub repository, choose **Settings → Pages → Build and deployment → Source → GitHub Actions**. Enable the workflow if prompted and push to `main` to deploy. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)

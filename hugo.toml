@@ -3,12 +3,12 @@ baseURL = 'https://tolga-tolga.github.io/Tolgas-IT-Sec-Blog/'
 timeZone = 'Europe/Berlin'
 defaultContentLanguage = 'en'
 disableDefaultLanguageRedirect = true
+title = "Tolga's IT Security Blog"
 copyright = '© 2026 Tolga'
 
 [languages.en]
   locale = 'en'
   label = 'English'
-  title = "Tolga's IT Security Blog"
   weight = 1
 
 [languages.en.params]
@@ -17,7 +17,6 @@ copyright = '© 2026 Tolga'
 [languages.de]
   locale = 'de-DE'
   label = 'Deutsch'
-  title = 'Tolgas IT-Sec Blog'
   weight = 2
 
 [languages.de.params]
