@@ -3,7 +3,7 @@ title = 'Welcome'
 description = 'Welcome to my blog!'
 tags = []
 visible = true
-draft = true
+draft = false
 +++
 
 ## What this blog covers
