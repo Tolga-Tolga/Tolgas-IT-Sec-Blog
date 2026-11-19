@@ -1,0 +1,11 @@
+{{ if not .date.IsZero }}
+  {{ $date := .date.Format "2006-01-02" }}
+  <time datetime="{{ $date }}"{{ if .browserLocale }} data-post-date{{ end }}>{{ if .browserLocale }}{{ $date }}{{ else }}{{ time.Format (T "long_date") .date }}{{ end }}</time>
+  <span aria-hidden="true">·</span>
+{{ end }}
+<time datetime="PT{{ .minutes }}M"{{ if .browserLocale }} data-post-minutes="{{ .minutes }}"{{ end }}>{{ if .browserLocale }}≈ {{ .minutes }} min{{ else }}{{ T "reading_time" .minutes }}{{ end }}</time>
+{{ if .browserLocale }}
+  {{ with resources.Get "js/post-stats.js" | minify | fingerprint }}
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+  {{ end }}
+{{ end }}

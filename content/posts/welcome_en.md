@@ -1,5 +1,6 @@
 +++
 title = 'Welcome'
+date = 2026-11-19
 description = 'Welcome to my blog!'
 tags = []
 visible = true

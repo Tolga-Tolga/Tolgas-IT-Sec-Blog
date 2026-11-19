@@ -97,8 +97,7 @@ a.tag:hover { border-color: var(--accent); }
 .post-heading { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; }
 .post-navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-bottom: .95rem; }
 .article-language { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; color: var(--muted); font-size: .9rem; }
-.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: 1.25rem; font: .85rem/1.4 var(--mono); }
-.post-meta time { margin-right: .5rem; }
+.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: 1.25rem; color: var(--muted); font: .85rem/1.4 var(--mono); }
 .prose { line-height: 1.78; overflow-wrap: anywhere; }
 .prose h2, .prose h3 { margin: 1.85em 0 .5em; }
 .prose p, .prose ul, .prose ol, .prose blockquote, .prose pre, .prose table { margin: 0 0 1.2rem; }

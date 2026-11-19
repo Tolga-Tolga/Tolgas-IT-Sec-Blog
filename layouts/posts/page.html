@@ -1,6 +1,16 @@
 {{ define "main" }}
   {{ $locale := partialCached "post-locale.html" . .File.Path }}
   {{ $variants := partial "post-variants.html" . }}
+  {{ $articleLanguage := lower $locale.language }}
+  {{ $metadataPage := . }}
+  {{ $browserLocale := true }}
+  {{ range hugo.Sites }}
+    {{ if or (eq .Language.Name $articleLanguage) (eq (lower .Language.Locale) $articleLanguage) }}
+      {{ $metadataPage = .Home }}
+      {{ $browserLocale = false }}
+      {{ break }}
+    {{ end }}
+  {{ end }}
   <article class="post" lang="{{ $locale.language }}">
     <header class="page-heading post-heading">
       <div class="post-navigation" lang="{{ site.Language.Locale }}">
@@ -20,7 +30,8 @@
       <h1>{{ .Title }}</h1>
       {{ with .Description }}<p>{{ . }}</p>{{ end }}
       <div class="post-meta">
-        {{ if not .Date.IsZero }}<time lang="{{ site.Language.Locale }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ time.Format (T "long_date") .Date }}</time>{{ end }}
+        {{ $readingMinutes := int (math.Max 1 .ReadingTime) }}
+        {{ $metadataPage.Render "_views/post-stats" (dict "date" .Date "minutes" $readingMinutes "browserLocale" $browserLocale) }}
         {{ range .GetTerms "tags" }}<a class="tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
       </div>
     </header>

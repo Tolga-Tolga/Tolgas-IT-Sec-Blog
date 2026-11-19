@@ -120,3 +120,7 @@ other = "2. Jan. 2006"
 
 [long_date]
 other = "2. January 2006"
+
+[reading_time]
+one = "Ca. {{ . }} Minute Lesezeit"
+other = "Ca. {{ . }} Minuten Lesezeit"

@@ -1,5 +1,6 @@
 +++
 title = 'NGINX und CVE-XXXX-YYYY: Untersuchung'
+date = 2026-11-19
 description = ''
 tags = ['NGINX', 'CVE']
 visible = false

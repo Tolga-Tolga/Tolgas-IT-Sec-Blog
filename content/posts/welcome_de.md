@@ -1,5 +1,6 @@
 +++
 title = 'Willkommen'
+date = 2026-11-19
 description = 'Herzlich willkommen auf meinem Blog!'
 tags = []
 visible = true
