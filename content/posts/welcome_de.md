@@ -7,7 +7,7 @@ draft = true
 +++
 
 ## Was machen wir hier?
-Hier behandeln wir die neuesten Themen in der IT-Security. Zum größten Teil befassen wir uns mit den neuesten Schwachstellen. Dabei schauen wir uns die Schwachstellen in der Theorie an und spielen anschließend ein Praxisbeispiel in unserem Lab durch. Die Labs stelle ich auf meinem GitHub-Profil bereit.
+Hier behandeln wir die neuesten Themen in der IT-Security. Zum größten Teil befassen wir uns mit den neuesten Schwachstellen. Dabei schauen wir uns die Schwachstellen in der Theorie an und spielen anschließend ein Praxisbeispiel in unserem Lab durch. Die Labs stelle ich auf meinem [GitHub-Profil](https://github.com/Tolga-Tolga) bereit.
 
 ## Schlusswort
 Freut euch auf die neuesten Posts!

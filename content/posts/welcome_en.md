@@ -8,7 +8,7 @@ draft = true
 
 ## What this blog covers
 
-We cover current topics in IT security, with a focus on recently disclosed vulnerabilities. We explain how each vulnerability works, then walk through a hands-on example in our lab. I'll make the labs available on my GitHub profile.
+We cover current topics in IT security, with a focus on recently disclosed vulnerabilities. We explain how each vulnerability works, then walk through a hands-on example in our lab. I'll make the labs available on my [GitHub profile](https://github.com/Tolga-Tolga).
 
 ## Closing thoughts
 
