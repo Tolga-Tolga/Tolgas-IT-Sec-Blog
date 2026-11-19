@@ -1,0 +1,5 @@
+{{- $posts := slice -}}
+{{- range partial "post-groups.html" .pages -}}
+  {{- $posts = $posts | append (partial "preferred-post.html" (dict "pages" . "language" $.language)) -}}
+{{- end -}}
+{{- return (sort $posts "Date" "desc") -}}

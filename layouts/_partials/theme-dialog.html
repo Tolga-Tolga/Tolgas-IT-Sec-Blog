@@ -1,0 +1,15 @@
+{{ $themes := resources.Get "kitty-themes.json" | fingerprint }}
+<dialog id="theme-dialog" class="theme-dialog" aria-labelledby="theme-title"
+  data-catalog="{{ $themes.RelPermalink }}" data-loading="{{ T "theme_loading" }}"
+  data-error="{{ T "theme_error" }}" data-empty="{{ T "theme_none" }}"
+  data-single="{{ T "theme_one" }}" data-plural="{{ T "theme_many" }}">
+  <div class="dialog-heading">
+    <h2 id="theme-title">{{ T "theme_title" }}</h2>
+    <form method="dialog"><button class="dialog-close" type="submit" aria-label="{{ T "theme_close" }}">×</button></form>
+  </div>
+  <label class="visually-hidden" for="theme-search">{{ T "theme_search" }}</label>
+  <input id="theme-search" class="theme-search" type="search" placeholder="{{ T "theme_search" }}" autocomplete="off" autofocus>
+  <p id="theme-status" class="theme-status" role="status"></p>
+  <ul id="theme-results" class="theme-results"></ul>
+  <p class="theme-source">{{ T "theme_credit" }} <a href="https://github.com/kovidgoyal/kitty-themes">{{ T "theme_catalog" }}</a></p>
+</dialog>

@@ -1,0 +1,28 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">
+      <span class="brand-icon" aria-hidden="true">&gt;_</span>
+      <span>{{ site.Title }}</span>
+    </a>
+    <nav class="site-nav" aria-label="{{ T "navigation" }}">
+      {{ with site.GetPage "/posts" }}
+        <a href="{{ .RelPermalink }}"{{ if eq $.Section "posts" }} aria-current="{{ if eq $.Kind "section" }}page{{ else }}true{{ end }}"{{ end }}>{{ T "posts" }}</a>
+      {{ end }}
+      {{ with site.GetPage "/tags" }}
+        <a href="{{ .RelPermalink }}"{{ if eq $.Section "tags" }} aria-current="{{ if eq $.Kind "taxonomy" }}page{{ else }}true{{ end }}"{{ end }}>{{ T "tags" }}</a>
+      {{ end }}
+      {{ with site.Home.OutputFormats.Get "rss" }}
+        <a class="rss-link" href="{{ .RelPermalink }}"><span class="rss-icon" aria-hidden="true"></span>RSS</a>
+      {{ end }}
+    </nav>
+    <div class="header-controls">
+      {{ partial "site-language.html" . }}
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-haspopup="dialog" hidden>
+        <span class="visually-hidden">{{ T "theme_title" }}</span>
+        <span class="theme-dot" aria-hidden="true"></span>
+        <span id="theme-name">Tokyo Night</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>

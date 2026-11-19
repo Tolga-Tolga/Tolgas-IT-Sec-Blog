@@ -1,0 +1,6 @@
+/public/
+/resources/_gen/
+/.hugo_build.lock
+/.feed-cache/
+/data/external_posts.json
+__pycache__/

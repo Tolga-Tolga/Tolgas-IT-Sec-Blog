@@ -1,0 +1,8 @@
+{{- $filename := replace .File.Path "\\" "/" -}}
+{{- $stem := strings.TrimSuffix (path.Ext $filename) $filename -}}
+{{- $language := "en" -}}
+{{- range findRE `_[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})*$` $stem 1 -}}
+  {{- $stem = strings.TrimSuffix . $stem -}}
+  {{- $language = strings.TrimPrefix "_" . -}}
+{{- end -}}
+{{- return (dict "key" $stem "language" $language) -}}

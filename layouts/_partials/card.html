@@ -1,0 +1,16 @@
+<article class="post-card"{{ with .language }} lang="{{ . }}"{{ end }}>
+  <div class="card-meta">
+    {{ if .labelURL }}
+      <a class="tag" href="{{ .labelURL }}">{{ .label }}</a>
+    {{ else if .label }}
+      <span class="tag">{{ .label }}</span>
+    {{ end }}
+    {{ with .date }}<time lang="{{ site.Language.Locale }}" datetime="{{ .Format "2006-01-02" }}">{{ time.Format (T "short_date") . }}</time>{{ end }}
+  </div>
+  {{ if eq .heading "h2" }}
+    <h2><a href="{{ .url }}">{{ .title }}</a></h2>
+  {{ else }}
+    <h3><a href="{{ .url }}">{{ .title }}</a></h3>
+  {{ end }}
+  {{ with .description }}<p>{{ . }}</p>{{ end }}
+</article>

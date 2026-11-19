@@ -1,0 +1,8 @@
+{{- $groups := newScratch -}}
+{{- $groups.Set "variants" (dict) -}}
+{{- range . -}}
+  {{- $locale := partialCached "post-locale.html" . .File.Path -}}
+  {{- $variants := index ($groups.Get "variants") $locale.key | default slice -}}
+  {{- $groups.SetInMap "variants" $locale.key ($variants | append .) -}}
+{{- end -}}
+{{- return ($groups.Get "variants") -}}

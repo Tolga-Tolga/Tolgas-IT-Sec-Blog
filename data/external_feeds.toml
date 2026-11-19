@@ -1,0 +1,4 @@
+# Pro RSS- oder Atom-Feed einen Block anlegen. name ist optional.
+# [[feeds]]
+# url = "https://example.org/feed.xml"
+# name = "Name des Blogs"

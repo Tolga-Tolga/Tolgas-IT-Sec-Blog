@@ -1,0 +1,29 @@
+{{ define "main" }}
+  {{ $locale := partialCached "post-locale.html" . .File.Path }}
+  {{ $variants := partial "post-variants.html" . }}
+  <article class="post" lang="{{ $locale.language }}">
+    <header class="page-heading post-heading">
+      <div class="post-navigation" lang="{{ site.Language.Locale }}">
+        {{ with site.GetPage "/posts" }}<a class="context-link" href="{{ .RelPermalink }}">{{ T "all_posts" }}</a>{{ end }}
+        {{ if gt (len $variants) 1 }}
+          <nav class="article-language" aria-label="{{ T "article_languages" }}">
+            <span>{{ T "article_language" }}</span>
+            <div class="language-switch">
+              {{ range sort $variants "File.Path" }}
+                {{ $variant := partialCached "post-locale.html" . .File.Path }}
+                <a href="{{ .RelPermalink }}" lang="{{ $variant.language }}" hreflang="{{ $variant.language }}"{{ if eq .RelPermalink $.RelPermalink }} aria-current="page"{{ end }}>{{ upper $variant.language }}</a>
+              {{ end }}
+            </div>
+          </nav>
+        {{ end }}
+      </div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      <div class="post-meta">
+        {{ if not .Date.IsZero }}<time lang="{{ site.Language.Locale }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ time.Format (T "long_date") .Date }}</time>{{ end }}
+        {{ range .GetTerms "tags" }}<a class="tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      </div>
+    </header>
+    <div class="prose">{{ .Content }}</div>
+  </article>
+{{ end }}

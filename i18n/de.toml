@@ -1,0 +1,101 @@
+[skip]
+other = "Zum Inhalt springen"
+
+[navigation]
+other = "Hauptnavigation"
+
+[posts]
+other = "Beiträge"
+
+[tags]
+other = "Tags"
+
+[subscribe]
+other = "RSS abonnieren"
+
+[site_language]
+other = "Sprache der Website"
+
+[hero_first]
+other = "Schwachstellen"
+
+[hero_second]
+other = "in der Praxis."
+
+[read_posts]
+other = "Beiträge lesen"
+
+[own_posts]
+other = "Meine Beiträge"
+
+[all_posts]
+other = "Alle Beiträge"
+
+[no_posts]
+other = "Es gibt noch keine veröffentlichten Beiträge."
+
+[external_posts]
+other = "Beiträge aus anderen Blogs"
+
+[no_feeds]
+other = "Es sind noch keine externen Feeds hinterlegt."
+
+[no_external]
+other = "Derzeit sind keine externen Beiträge verfügbar."
+
+[all_tags]
+other = "Alle Tags"
+
+[no_tags]
+other = "Es gibt noch keine Tags."
+
+[article_languages]
+other = "Sprachversionen des Artikels"
+
+[article_language]
+other = "Artikelsprache"
+
+[missing_title]
+other = "Seite nicht gefunden"
+
+[missing_text]
+other = "Unter dieser Adresse ist kein Beitrag verfügbar."
+
+[back_home]
+other = "Zur Startseite"
+
+[theme_title]
+other = "Kitty-Theme auswählen"
+
+[theme_search]
+other = "Themes durchsuchen …"
+
+[theme_close]
+other = "Schließen"
+
+[theme_credit]
+other = "Farbpaletten aus dem"
+
+[theme_catalog]
+other = "Kitty-Theme-Katalog"
+
+[theme_loading]
+other = "Kitty-Themes werden geladen …"
+
+[theme_error]
+other = "Die Themes konnten nicht geladen werden. Öffne die Auswahl erneut."
+
+[theme_none]
+other = "Keine Themes gefunden."
+
+[theme_one]
+other = "Theme"
+
+[theme_many]
+other = "Themes"
+
+[short_date]
+other = "2. Jan. 2006"
+
+[long_date]
+other = "2. January 2006"

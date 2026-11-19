@@ -1,0 +1,39 @@
+baseURL = 'https://tolga-tolga.github.io/Tolgas-IT-Sec-Blog/'
+timeZone = 'Europe/Berlin'
+defaultContentLanguage = 'en'
+disableDefaultLanguageRedirect = true
+
+[languages.en]
+  locale = 'en'
+  label = 'English'
+  title = "Tolga's IT Security Blog"
+  weight = 1
+
+[languages.en.params]
+  description = 'Hands-on investigations into recent security vulnerabilities and CVEs, with room for other IT security topics.'
+
+[languages.de]
+  locale = 'de-DE'
+  label = 'Deutsch'
+  title = 'Tolgas IT-Sec Blog'
+  weight = 2
+
+[languages.de.params]
+  description = 'Praktische Untersuchungen aktueller IT-Schwachstellen und CVEs. Dazu Beiträge zu weiteren Themen der IT-Sicherheit.'
+
+[[module.mounts]]
+  source = 'content'
+  target = 'content'
+  sites.matrix.languages = ['en', 'de']
+
+[taxonomies]
+  tag = 'tags'
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+  taxonomy = ['HTML']
+  term = ['HTML', 'RSS']
+
+[markup.highlight]
+  noClasses = false

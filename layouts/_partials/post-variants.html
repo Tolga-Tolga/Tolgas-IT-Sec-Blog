@@ -1,0 +1,4 @@
+{{- $posts := .Site.GetPage "/posts" -}}
+{{- $groups := partialCached "post-groups.html" $posts.RegularPagesRecursive .Site.Language.Name -}}
+{{- $locale := partialCached "post-locale.html" . .File.Path -}}
+{{- return (index $groups $locale.key) -}}

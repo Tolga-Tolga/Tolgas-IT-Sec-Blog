@@ -1,0 +1,22 @@
+<section class="external-posts" aria-labelledby="external-title">
+  <div class="section-heading">
+    <h2 id="external-title">{{ T "external_posts" }}</h2>
+  </div>
+  {{ if not hugo.Data.external_feeds.feeds }}
+    <p class="empty-state">{{ T "no_feeds" }}</p>
+  {{ else }}
+    {{ $entries := slice }}
+    {{ with hugo.Data.external_posts }}{{ $entries = .posts }}{{ end }}
+    {{ with $entries }}
+      <div class="post-grid">
+        {{ range . }}
+          {{ $card := dict "url" .url "title" .title "label" .source "description" .description }}
+          {{ with .date }}{{ $card = merge $card (dict "date" (time.AsTime .)) }}{{ end }}
+          {{ partial "card.html" $card }}
+        {{ end }}
+      </div>
+    {{ else }}
+      <p class="empty-state">{{ T "no_external" }}</p>
+    {{ end }}
+  {{ end }}
+</section>

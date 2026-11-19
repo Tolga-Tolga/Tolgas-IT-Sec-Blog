@@ -1,0 +1,20 @@
+{{- $best := index .pages 0 -}}
+{{- $bestRank := -1 -}}
+{{- range .pages -}}
+  {{- $locale := partialCached "post-locale.html" . .File.Path -}}
+  {{- $language := lower $locale.language -}}
+  {{- $primary := index (split $language "-") 0 -}}
+  {{- $rank := 0 -}}
+  {{- if eq $language $.language -}}
+    {{- $rank = 3 -}}
+  {{- else if eq $primary $.language -}}
+    {{- $rank = 2 -}}
+  {{- else if eq $primary "en" -}}
+    {{- $rank = 1 -}}
+  {{- end -}}
+  {{- if gt $rank $bestRank -}}
+    {{- $best = . -}}
+    {{- $bestRank = $rank -}}
+  {{- end -}}
+{{- end -}}
+{{- return $best -}}

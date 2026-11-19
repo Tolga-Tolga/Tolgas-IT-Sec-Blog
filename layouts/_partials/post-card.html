@@ -1,0 +1,14 @@
+{{ $page := .page }}
+{{ $locale := partialCached "post-locale.html" $page $page.File.Path }}
+{{ $card := dict
+  "heading" .heading
+  "language" $locale.language
+  "url" $page.RelPermalink
+  "title" $page.LinkTitle
+  "description" ($page.Description | default ($page.Summary | plainify | truncate 150))
+}}
+{{ if not $page.Date.IsZero }}{{ $card = merge $card (dict "date" $page.Date) }}{{ end }}
+{{ range first 1 ($page.GetTerms "tags") }}
+  {{ $card = merge $card (dict "label" .LinkTitle "labelURL" .RelPermalink) }}
+{{ end }}
+{{ partial "card.html" $card }}

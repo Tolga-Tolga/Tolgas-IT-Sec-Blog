@@ -1,0 +1,19 @@
+<nav class="language-switch" aria-label="{{ T "site_language" }}">
+  {{ range hugo.Sites }}
+    {{ $target := .Home }}
+    {{ $language := .Language.Name }}
+    {{ if eq $language $.Site.Language.Name }}
+      {{ $target = $ }}
+    {{ else }}
+      {{ with .GetPage $.Path }}
+        {{ $target = . }}
+        {{ if and .IsPage (eq .Section "posts") }}
+          {{ with partial "post-variants.html" . }}
+            {{ $target = partial "preferred-post.html" (dict "pages" . "language" $language) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    <a href="{{ $target.RelPermalink }}" hreflang="{{ .Language.Locale }}" lang="{{ .Language.Locale }}" aria-label="{{ .Language.Label }}"{{ if eq $language $.Site.Language.Name }} aria-current="true"{{ end }}>{{ upper $language }}</a>
+  {{ end }}
+</nav>

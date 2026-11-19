@@ -1,0 +1,101 @@
+[skip]
+other = "Skip to content"
+
+[navigation]
+other = "Main navigation"
+
+[posts]
+other = "Posts"
+
+[tags]
+other = "Tags"
+
+[subscribe]
+other = "Subscribe via RSS"
+
+[site_language]
+other = "Website language"
+
+[hero_first]
+other = "Vulnerabilities"
+
+[hero_second]
+other = "in practice."
+
+[read_posts]
+other = "Read posts"
+
+[own_posts]
+other = "My posts"
+
+[all_posts]
+other = "All posts"
+
+[no_posts]
+other = "There are no published posts yet."
+
+[external_posts]
+other = "Posts from other blogs"
+
+[no_feeds]
+other = "No external feeds are configured yet."
+
+[no_external]
+other = "No external posts are currently available."
+
+[all_tags]
+other = "All tags"
+
+[no_tags]
+other = "There are no tags yet."
+
+[article_languages]
+other = "Article languages"
+
+[article_language]
+other = "Article language"
+
+[missing_title]
+other = "Page not found"
+
+[missing_text]
+other = "There is no post at this address."
+
+[back_home]
+other = "Back to home"
+
+[theme_title]
+other = "Choose a Kitty theme"
+
+[theme_search]
+other = "Search themes …"
+
+[theme_close]
+other = "Close"
+
+[theme_credit]
+other = "Palettes from the"
+
+[theme_catalog]
+other = "Kitty theme catalog"
+
+[theme_loading]
+other = "Loading Kitty themes …"
+
+[theme_error]
+other = "Themes could not be loaded. Reopen the picker to try again."
+
+[theme_none]
+other = "No themes found."
+
+[theme_one]
+other = "theme"
+
+[theme_many]
+other = "themes"
+
+[short_date]
+other = "Jan 2, 2006"
+
+[long_date]
+other = "January 2, 2006"

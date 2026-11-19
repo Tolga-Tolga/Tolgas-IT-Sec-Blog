@@ -1,0 +1,68 @@
+name: Hugo auf GitHub Pages veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/configure-pages@v6
+        id: pages
+      - uses: actions/cache@v6
+        with:
+          path: .feed-cache
+          key: rss-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: rss-
+      - name: Externe Feeds aktualisieren
+        run: python3 scripts/update-feeds.py
+      - name: Hugo installieren
+        env:
+          HUGO_VERSION: 0.170.1
+          HUGO_SHA256: 841a5462853aefc9942e4de1e8a5d75584b6a5181941e6ad3f1d745190e03cd8
+        run: |
+          archive="hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          curl --fail --silent --show-error --location --retry 3 \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/$archive" \
+            --output "$RUNNER_TEMP/$archive"
+          cd "$RUNNER_TEMP"
+          printf '%s  %s\n' "$HUGO_SHA256" "$archive" | sha256sum --check -
+          tar -xzf "$archive" hugo
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+      - name: Website bauen
+        env:
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+        run: hugo build --gc --minify --baseURL "${PAGES_URL%/}/"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment

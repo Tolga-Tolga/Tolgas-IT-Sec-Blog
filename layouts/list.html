@@ -1,0 +1,29 @@
+{{ define "main" }}
+  <section class="listing" aria-labelledby="listing-title">
+    <header class="page-heading">
+      {{ if eq .Kind "term" }}<a class="context-link" href="{{ .Parent.RelPermalink }}">{{ T "all_tags" }}</a>{{ end }}
+      <h1 id="listing-title">{{ .Title }}</h1>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+    {{ if eq .Kind "taxonomy" }}
+      {{ with .Data.Terms.Alphabetical }}
+        <ul class="tag-index">
+          {{ range . }}
+            {{ $count := len (partial "post-groups.html" .Page.RegularPages) }}
+            <li><a class="tag" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }} <span>{{ $count }}</span></a></li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p class="muted">{{ T "no_tags" }}</p>
+      {{ end }}
+    {{ else }}
+      {{ $pages := .RegularPages }}
+      {{ if eq .Kind "section" }}{{ $pages = .RegularPagesRecursive }}{{ end }}
+      {{ with partial "preferred-posts.html" (dict "pages" $pages "language" site.Language.Name) }}
+        <div class="post-grid">{{ range . }}{{ partial "post-card.html" (dict "page" . "heading" "h2") }}{{ end }}</div>
+      {{ else }}
+        <p class="empty-state">{{ T "no_posts" }}</p>
+      {{ end }}
+    {{ end }}
+  </section>
+{{ end }}

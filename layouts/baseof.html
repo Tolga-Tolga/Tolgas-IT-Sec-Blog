@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if eq .Kind "404" }}{{ T "missing_title" }} · {{ else if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
+  <meta name="description" content="{{ .Description | default site.Params.description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ $feed := .OutputFormats.Get "rss" | default (site.Home.OutputFormats.Get "rss") }}
+  {{ with $feed }}<link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
+  {{ with resources.Get "css/site.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{ end }}
+  {{ with resources.Get "js/themes.js" | minify | fingerprint }}
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+  {{ end }}
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">{{ T "skip" }}</a>
+  {{ partial "header.html" . }}
+  <main id="inhalt" class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  {{ partial "theme-dialog.html" . }}
+</body>
+</html>
