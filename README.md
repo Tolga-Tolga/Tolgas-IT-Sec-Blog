@@ -33,6 +33,14 @@ Both files go in `content/posts/`. Use the same name before the language suffix 
 
 Fill in `title` and `description` in the generated TOML front matter. Hugo sets `date` when it creates the file. Add optional `tags` and write the article below the closing `+++`. Set `visible = true` to show it in the preview. Keep `draft = true` while writing, then set `draft = false` when it is ready for the normal build. [Post template](archetypes/posts.md)
 
+Use `[^1]` in the text and define the matching source at the end of the file. The article shows a clickable `[1]` that jumps to the source. Hugo numbers sources in order of first citation. Repeat `[^1]` to cite the same source again.
+
+```markdown
+The vendor describes the change in its advisory[^1].
+
+[^1]: [Vendor advisory](https://example.org/advisory)
+```
+
 ## Adding external feeds
 
 Add one `[[feeds]]` block per RSS or Atom source in `data/external_feeds.toml`. Use the feed's XML URL. The optional `name` overrides the source label on the cards. [Feed configuration](data/external_feeds.toml)

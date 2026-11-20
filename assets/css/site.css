@@ -116,6 +116,21 @@ a.tag:hover { border-color: var(--accent); }
 .prose th, .prose td { text-align: left; padding: .55rem; border: 1px solid var(--line); }
 .prose th { background: var(--raised); color: var(--heading); }
 .prose blockquote { border-inline-start: 3px solid var(--accent); padding-inline-start: 1rem; }
+.post-body { --source-font-size: .92rem; }
+.post-body sup:has(> .footnote-ref) { font: inherit; vertical-align: baseline; }
+.post-body .footnote-ref, .post-body .footnotes li::marker { font-family: var(--mono); font-size: var(--source-font-size); }
+.post-body .footnote-ref { margin-inline-start: .2em; text-decoration: none; white-space: nowrap; }
+.post-body .footnote-ref::before { content: "["; }
+.post-body .footnote-ref::after { content: "]"; }
+.post-body .footnote-ref:hover { text-decoration: underline; }
+.post-body .footnote-backref { display: none; }
+.post-body .footnotes { margin-block-start: 2rem; font-size: var(--source-font-size); }
+.post-body .footnotes hr { border: 0; border-block-start: 1px solid var(--line); }
+.post-body .footnotes p { margin-block-end: .45rem; }
+.post-body .footnotes a { color: inherit; }
+.post-body .footnotes li { scroll-margin-block-start: 2rem; }
+.post-body .footnotes li::marker { content: "[" counter(list-item) "]  "; color: var(--muted); }
+.post-body .footnotes li:target::marker { color: var(--accent); }
 .privacy-address { white-space: pre-line; }
 .chroma .k, .chroma .kd, .chroma .kn, .chroma .kc, .chroma .nt { color: var(--accent); }
 .chroma .s, .chroma .s1, .chroma .s2, .chroma .sb, .chroma .sa { color: var(--green); }
